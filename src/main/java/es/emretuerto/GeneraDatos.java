@@ -49,13 +49,13 @@ public class GeneraDatos {
 
     @Autowired
     TipoClienteRepository tipoClienteDao;
-    
+
     @Autowired
     ClienteRepository clienteDao;
 
     @Autowired
     LamparaInstaladaRepository lamparaInstaladaDao;
-    
+
     public void generaPotencias() {
 
         Potencia potencia1 = new Potencia("80", 80);
@@ -76,11 +76,12 @@ public class GeneraDatos {
 
     public void generaLamparas() {
 
-        Potencia potencia1 = potenciaDao.findOne(1);
+        Potencia potencia1 = potenciaDao.getOne(1);
+        //   Potencia potencia1 = potenciaDao.findOne(1);
         Lampara lampara1 = new Lampara("0001", "Sylvania", "Purebronce 100 1.2", 800, 17.5d, potencia1);
-        Potencia potencia2 = potenciaDao.findOne(2);
+        Potencia potencia2 = potenciaDao.getOne(2);
         Lampara lampara2 = new Lampara("0002", "Sylvania", "CaralSol", 1000, 25.5d, potencia2);
-        Potencia potencia3 = potenciaDao.findOne(6);
+        Potencia potencia3 = potenciaDao.getOne(6);
         Lampara lampara3 = new Lampara("0003", "Sylvania", "Chamuscator", 2800, 140.99d, potencia3);
 
         lamparaDao.save(lampara1);
@@ -90,9 +91,9 @@ public class GeneraDatos {
 
     public void generarMaquinas() {
 
-        Maquina maquina1 = new Maquina("Cabina 1", "Ergoline", "23/1",0,0);
-        Maquina maquina2 = new Maquina("Cabina 2", "Solpasion", "Mega Super",150,150);
-        Maquina maquina3 = new Maquina("Cabina 3", "Soltron", "Bronceator",163,25);
+        Maquina maquina1 = new Maquina("Cabina 1", "Ergoline", "23/1", 0, 0);
+        Maquina maquina2 = new Maquina("Cabina 2", "Solpasion", "Mega Super", 150, 150);
+        Maquina maquina3 = new Maquina("Cabina 3", "Soltron", "Bronceator", 163, 25);
 
         maquinaDao.save(maquina1);
         maquinaDao.save(maquina2);
@@ -138,22 +139,19 @@ public class GeneraDatos {
 
         Cliente cliente1 = new Cliente("0001", null, "EDUARDO", "MARTINEZ RETUERTO", "13155640P", "SAN LUIS", "39010", "SANTANDER", "CANTABRIA", new Date(73, 4, 6), "942000000", "615303890", "emretuerto@gmail.com", fototipoDao.getOne(3), null, tipoClienteDao.getOne(1), bonoDao.getOne(1));
         Cliente cliente2 = new Cliente("0002", null, "CRISTINA", "DE LA VEGA SANTOS", "20203177T", "SAN LUIS", "39010", "SANTANDER", "CANTABRIA", new Date(75, 6, 21), "942999999", "635471840", "cgevasantos@gmail.com", fototipoDao.getOne(3), null, tipoClienteDao.getOne(2), bonoDao.getOne(2));
-   
+
         clienteDao.save(cliente1);
-        clienteDao.save(cliente2);  
+        clienteDao.save(cliente2);
     }
-    
-    public void generarLamparasInstaladas(){
-        
-        LamparaInstalada lamparaInstalada1 = new LamparaInstalada(maquinaDao.findOne(1), lamparaDao.findOne(1), 20);
-        LamparaInstalada lamparaInstalada2 = new LamparaInstalada(lamparaDao.findOne(3), 40);
-        LamparaInstalada lamparaInstalada3 = new LamparaInstalada(lamparaDao.findOne(2), 20);
-        
+
+    public void generarLamparasInstaladas() {
+
+        LamparaInstalada lamparaInstalada1 = new LamparaInstalada(maquinaDao.getOne(1), lamparaDao.getOne(1), 20);
+        LamparaInstalada lamparaInstalada2 = new LamparaInstalada(lamparaDao.getOne(3), 40);
+        LamparaInstalada lamparaInstalada3 = new LamparaInstalada(lamparaDao.getOne(2), 20);
         lamparaInstaladaDao.save(lamparaInstalada1);
-        
-        Maquina maquina = maquinaDao.findOne(2);
+        Maquina maquina = maquinaDao.getOne(2);
         maquina.addLamparaInstalada(lamparaInstalada2);
         maquina.addLamparaInstalada(lamparaInstalada3);
-  
     }
 }

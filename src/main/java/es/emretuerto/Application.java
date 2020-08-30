@@ -96,7 +96,10 @@ public class Application implements CommandLineRunner {
         
 
 List<LamparaInstalada> lamparasActivas = lamparaInstaladaDao.obtenerLamparasActivas(2);
-        System.out.println(lamparasActivas);
+
+    lamparasActivas.stream().forEach(System.out::println);
+
+      //  System.out.println(lamparasActivas);
         
 //        Maquina maquina1 = maquinaDao.findOne(1);
 //        Maquina maquina2 = maquinaDao.findOne(2);

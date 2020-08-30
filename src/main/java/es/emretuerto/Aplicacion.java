@@ -25,7 +25,7 @@ public class Aplicacion  extends JFrame implements CommandLineRunner {
 
     public static void main(String[] args) throws Exception {
            ConfigurableApplicationContext ctx = new SpringApplicationBuilder(Aplicacion.class)
-            .headless(false).web(false).run(args);
+            .headless(false).run(args);
 
     EventQueue.invokeLater(() -> {
         Aplicacion ex = ctx.getBean(Aplicacion.class);
