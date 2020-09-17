@@ -1,6 +1,7 @@
 package es.emretuerto.modelo;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 /**
  *
@@ -31,9 +33,9 @@ public class Sesion implements Serializable {
     @Column(name = "ID")
     private Long id;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Column(updatable = false, nullable = false, name = "FECHA")
-    private Date fecha;
+    private LocalDateTime fecha;
 
     @ManyToOne
     @Cascade(CascadeType.ALL)
@@ -52,7 +54,7 @@ public class Sesion implements Serializable {
     private Integer duracion;
 
     public Sesion(Cliente cliente, Maquina maquina, Double sesionesConsumidasBono, Integer duracion) {
-        this.fecha = new Date();
+        this.fecha = LocalDateTime.now();
         this.cliente = cliente;
         this.maquina = maquina;
         this.sesionesConsumidasBono = sesionesConsumidasBono;
@@ -70,11 +72,11 @@ public class Sesion implements Serializable {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 

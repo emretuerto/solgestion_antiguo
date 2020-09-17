@@ -6,6 +6,9 @@
 package es.emretuerto.modelo;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -44,13 +47,13 @@ public class LamparaInstalada implements Serializable {
     @Cascade(CascadeType.ALL)
     private Lampara lampara;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(updatable = false, nullable = false, name = "FECHA_INSTALACION")
-    private Date fechaInstalacion;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable = false, nullable = false, name = "FECHA_INSTALACION")
+    private LocalDateTime fechaInstalacion;
+
+
     @Column(updatable = false, name = "FECHA_RETIRADA")
-    private Date fechaRetirada;
+    private LocalDateTime fechaRetirada;
 
     @Column(name = "MINUTOS_CONSUMIDOS")
     private Integer minutosConsumidos;
@@ -58,7 +61,7 @@ public class LamparaInstalada implements Serializable {
     @Column(name = "CANTIDAD")
     private Integer cantidad;
 
-    public LamparaInstalada(Maquina maquina, Lampara lampara, Date fechaInstalacion, Integer cantidad) {
+    public LamparaInstalada(Maquina maquina, Lampara lampara, LocalDateTime fechaInstalacion, Integer cantidad) {
         this.maquina = maquina;
         this.lampara = lampara;
         this.fechaInstalacion = fechaInstalacion;
@@ -66,7 +69,7 @@ public class LamparaInstalada implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public LamparaInstalada(Lampara lampara, Date fechaInstalacion, Integer cantidad) {
+    public LamparaInstalada(Lampara lampara, LocalDateTime fechaInstalacion, Integer cantidad) {
         this.lampara = lampara;
         this.fechaInstalacion = fechaInstalacion;
         this.cantidad = cantidad;
@@ -78,14 +81,14 @@ public class LamparaInstalada implements Serializable {
         this.lampara = lampara;
         this.cantidad = cantidad;
         this.minutosConsumidos = 0;
-        this.fechaInstalacion = new Date();
+        this.fechaInstalacion = LocalDateTime.now();
     }
 
     public LamparaInstalada(Lampara lampara, Integer cantidad) {
         this.lampara = lampara;
         this.cantidad = cantidad;
         this.minutosConsumidos = 0;
-        this.fechaInstalacion = new Date();
+        this.fechaInstalacion = LocalDateTime.now();
     }
 
     public LamparaInstalada() {
@@ -107,19 +110,19 @@ public class LamparaInstalada implements Serializable {
         this.lampara = lampara;
     }
 
-    public Date getFechaInstalacion() {
+    public LocalDateTime getFechaInstalacion() {
         return fechaInstalacion;
     }
 
-    public void setFechaInstalacion(Date fechaInstalacion) {
+    public void setFechaInstalacion(LocalDateTime fechaInstalacion) {
         this.fechaInstalacion = fechaInstalacion;
     }
 
-    public Date getFechaRetirada() {
+    public LocalDateTime getFechaRetirada() {
         return fechaRetirada;
     }
 
-    public void setFechaRetirada(Date fechaRetirada) {
+    public void setFechaRetirada(LocalDateTime fechaRetirada) {
         this.fechaRetirada = fechaRetirada;
     }
 
@@ -190,7 +193,10 @@ public class LamparaInstalada implements Serializable {
 
     @Override
     public String toString() {
-        return "LamparaInstalada{" + "maquina=" + maquina.getNombre() + ", lampara=" + lampara.getCodigo() + ", fechaInstalacion=" + fechaInstalacion + ", fechaRetirada=" + fechaRetirada + ", minutosConsumidos=" + minutosConsumidos + ", cantidad=" + cantidad + '}';
+
+        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        
+        return "LamparaInstalada{" + "maquina=" + maquina.getNombre() + ", lampara=" + lampara.getCodigo() + ", fechaInstalacion=" + formateador.format(fechaInstalacion)  + ", fechaRetirada=" + fechaRetirada + ", minutosConsumidos=" + minutosConsumidos + ", cantidad=" + cantidad + '}';
     }
 
 }

@@ -92,7 +92,7 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-         rellenarBaseDatos();
+    //   rellenarBaseDatos();
         
 
 List<LamparaInstalada> lamparasActivas = lamparaInstaladaDao.obtenerLamparasActivas(2);
